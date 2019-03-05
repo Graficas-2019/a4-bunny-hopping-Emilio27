@@ -5,20 +5,16 @@ var renderer = null,
     group = null,
     conejo = null,
     directionalLight = null;
-
-
-var duration = 10,
+    duration = 10,
     crateAnimator = null,
     lightAnimator = null,
-    loopAnimation = true;
+    loopAnimation = true,
+    objLoader = null;
+    
+var animateCrate = true,
+    nowTime = Date.now(),
+    index = [17];
 
-var objLoader = null;
-var animateCrate = true;
-
-
-var nowTime = Date.now();
-
-times = [17];
 
 function loadObj() {
     if (!objLoader)
@@ -45,7 +41,6 @@ function loadObj() {
             conejo.position.x = 0;
             conejo.rotation.x = 0;
             conejo.rotation.y = Math.PI / 2;
-
             group.add(conejo);
         },
         function (xhr) {
@@ -124,14 +119,11 @@ function createScene(canvas) {
     scene.add(pasto2);
 
     loadObj();
-
-    // Now add the group to our scene
     scene.add(root);
 
 }
 
 function playAnimations() {
-    cTiempo()
 
     // position animation
     if (crateAnimator)
@@ -147,25 +139,25 @@ function playAnimations() {
             interps:
                 [
                     {
-                        keys: times,
+                        keys: [0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375,1],
                         values: [
 
                             { x: 0, y: 0, z: 0 },
-                            { x: 1, y: 1, z: 1.5 },
-                            { x: 2, y: 0, z: 2 },
-                            { x: 3, y: 1, z: 1.5 },
+                            { x: 1, y: 1, z: Math.PI * 0.47 },
+                            { x: 2, y: 0, z: Math.PI * 0.64 },
+                            { x: 3, y: 1, z: Math.PI * 0.47 },
                             { x: 4, y: 0, z: 0 },
-                            { x: 3, y: 1, z: -1.5 },
-                            { x: 2, y: 0, z: -2 },
-                            { x: 1, y: 1, z: -1.5 },
+                            { x: 3, y: 1, z: Math.PI * (-0.47) },
+                            { x: 2, y: 0, z: Math.PI * (-0.64) },
+                            { x: 1, y: 1, z: Math.PI * (-0.47) },
                             { x: 0, y: 0, z: 0 },
-                            { x: -1, y: 1, z: 1.5 },
-                            { x: -2, y: 0, z: 2 },
-                            { x: -3, y: 1, z: 1.5 },
+                            { x: -1, y: 1, z: Math.PI * 0.47 },
+                            { x: -2, y: 0, z: Math.PI * 0.64 },
+                            { x: -3, y: 1, z: Math.PI * 0.47 },
                             { x: -4, y: 0, z: 0 },
-                            { x: -3, y: 1, z: -1.5 },
-                            { x: -2, y: 0, z: -2 },
-                            { x: -1, y: 1, z: -1.5 },
+                            { x: -3, y: 1, z: Math.PI * (-0.47) },
+                            { x: -2, y: 0, z: Math.PI * (-0.64) },
+                            { x: -1, y: 1, z: Math.PI * (-0.47) },
                             { x: 0, y: 0, z: 0 },
 
                         ],
@@ -198,24 +190,3 @@ function playAnimations() {
     }
 
 }
-
-function cTiempo() {
-
-    var temp = 1 / 16;
-
-    for (i = 0; i < 17; i++) {
-
-        if (i == 0) {
-            times[i] = 0
-        }
-        else if (i == 16) {
-            times[i] = 1
-        }
-        else {
-            times[i] = temp;
-            temp += 1 / 16;
-        }
-
-    }
-}
-
